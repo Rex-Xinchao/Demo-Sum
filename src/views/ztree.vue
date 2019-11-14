@@ -20,7 +20,7 @@ export default {
     float: left;
   }
 </style>
-<style>
+<style lang="scss">
   @import "../styles/ztree/metroStyle/metroStyle.css";
-  @import "../styles/ztree/tooltip.css";
+  @import "../styles/ztree/ztree.scss";
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-main">
+  <div class="ztree-main">
     <Input search enter-button placeholder="请输入搜索关键词" @on-search="search" />
     <el-button size="small" type="primary" class="save-btn" @click="saveNode">save</el-button>
     <button class="add-classification-btn" @click="addClassification">添加大分类</button>
@@ -256,7 +256,6 @@ export default {
     },
     saveNode () {
       const treeData = $.fn.zTree.getZTreeObj('ztree').getNodes() // 获取树全部节点数据
-      console.log(treeData)
     },
     // 拖拽操作
     beforeDrag (treeId, treeNodes) {
@@ -278,7 +277,7 @@ export default {
       this.selectedItem = item
       this.selectedNode = this.findNode(this.selectedItem)
       this.$refs.tooltip.style.left = e.clientX + 'px'
-      this.$refs.tooltip.style.top = e.clientY - 80 + 'px'
+      this.$refs.tooltip.style.top = e.clientY - 40 + 'px'
     },
     // dialogEvent
     dialogSave (form) {

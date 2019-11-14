@@ -1,7 +1,5 @@
 <template>
-  <div id="demo">
-    <svg id="force" width="960" height="600"></svg>
-  </div>
+  <svg id="force" width="600" height="600"></svg>
 </template>
 <script>
 import * as d3 from 'd3'
@@ -66,9 +64,11 @@ export default {
   methods: {
     initChart () {
       this.svg = d3.select('#force')
+      const width = this.svg.attr('width')
+      const height = this.svg.attr('height')
       const centerPoint = {
-        x: this.svg.attr('width') / 2,
-        y: this.svg.attr('height') / 2
+        x: width / 2,
+        y: height / 2
       }
       // 构建模拟器
       this.simulation = d3.forceSimulation().nodes(nodesData)
@@ -139,7 +139,6 @@ export default {
         .style('stroke', this.linkColor)
     },
     linkColor (d) {
-      console.log(d)
       if (d.type === 'A') {
         return 'green'
       } else {
@@ -154,23 +153,8 @@ export default {
 </script>
 
 <style scoped>
-  svg {
-    border: 1px solid #ccc;
-  }
-  #demo {
-    width: 960px;
-    height: 600px;
-    margin: 20px auto;
-  }
-</style>
-<style>
-  .links line {
-    stroke: #999;
-    stroke-opacity: 0.6;
-  }
-
-  .nodes circle {
-    stroke: #fff;
-    stroke-width: 1.5px;
+  #force {
+    width: 100%;
+    height: 100%;
   }
 </style>
