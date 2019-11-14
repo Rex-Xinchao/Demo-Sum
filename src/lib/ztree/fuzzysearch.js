@@ -11,7 +11,7 @@
  *
  * @returns
  */
-let zTreeObj
+let zTreeObj = null
 const isHighLight = false // 设置为true变更名称会出现span标签，不太合适
 const isExpand = true
 const fuzzySearch = (zTreeId) => {
