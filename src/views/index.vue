@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <ul class="categroy">
+    <ul class="category">
       <li class="title">目录</li>
-      <li v-for="(item, index) in categroy" :key="index">
+      <li v-for="(item, index) in category" :key="index">
         <router-link :to="item.to">{{item.name}}</router-link>
       </li>
     </ul>
@@ -14,7 +14,7 @@ export default {
   name: 'index',
   data () {
     return {
-      categroy: [
+      category: [
         { name: 'treeDemo', to: '/tree' },
         { name: 'ztreeDemo', to: '/ztree' },
         { name: 'd3Demo', to: '/d3' },
@@ -33,26 +33,26 @@ export default {
     align-content: center;
     align-items: center;
     justify-content: center;
-  }
 
-  .categroy {
-    flex: 100%;
-    height: 500px;
+    .category {
+      flex: 100%;
+      height: 500px;
 
-    .title {
-      font-size: 30px;
-      font-weight: bolder;
-      margin-bottom: 50px;
-    }
+      li {
+        display: block;
+        height: 22px;
+        margin-bottom: 12px;
+        line-height: 22px;
+        font-size: 22px;
+        text-align: center;
+        list-style: none;
+      }
 
-    li {
-      display: block;
-      height: 22px;
-      margin-bottom: 12px;
-      line-height: 22px;
-      font-size: 22px;
-      text-align: center;
-      list-style: none;
+      .title {
+        font-size: 30px;
+        font-weight: bolder;
+        margin-bottom: 50px;
+      }
     }
   }
 </style>

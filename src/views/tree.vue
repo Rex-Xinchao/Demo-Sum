@@ -1,5 +1,5 @@
 <template>
-  <div class="main-box">
+  <div class="container">
     <Tree></Tree>
   </div>
 </template>
@@ -14,9 +14,13 @@ export default {
 </script>
 
 <style scoped>
-  .main-box {
+  .container {
     width: 300px;
     height: 100%;
     float: left;
+    background-color: white;
   }
+</style>
+<style lang="scss">
+  @import "../styles/tree/tree";
 </style>

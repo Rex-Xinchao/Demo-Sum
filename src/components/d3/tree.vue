@@ -1,7 +1,5 @@
 <template>
-  <div id="demo">
-    <svg id="tree" width="600" height="600"></svg>
-  </div>
+  <svg id="tree" width="600" height="600"></svg>
 </template>
 <script>
 import * as d3 from 'd3'
@@ -135,23 +133,8 @@ export default {
 </script>
 
 <style scoped>
-  svg {
-    border: 1px solid #ccc;
-  }
-  #demo {
-    width: 600px;
-    height: 600px;
-    margin: 20px auto;
-  }
-</style>
-<style>
-  .links line {
-    stroke: #999;
-    stroke-opacity: 0.6;
-  }
-
-  .nodes circle {
-    stroke: #fff;
-    stroke-width: 1.5px;
+  #tree {
+    width: 100%;
+    height: 100%;
   }
 </style>
