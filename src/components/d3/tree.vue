@@ -87,7 +87,7 @@ export default {
 
       const root = tree(data)
 
-      const link = svg.append('g')
+      svg.append('g')
         .attr('fill', 'none')
         .attr('stroke', '#555')
         .attr('stroke-opacity', 0.4)

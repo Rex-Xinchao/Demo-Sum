@@ -29,20 +29,18 @@ server.on('connection', clientSocket => {
           if (user.nickname !== clientSocket.nickname) {
             user.write(JSON.stringify({
               type: types.log,
-              message: `${data.nickname} 进入了聊天室，当前在线用户：${users.length }`
+              message: `${data.nickname} 进入了聊天室，当前在线用户：${users.length}`
             }))
           }
         })
         break
       case types.broadcast:
         users.forEach(item => {
-
           item.write(JSON.stringify({
             type: types.broadcast,
             nickname: clientSocket.nickname,
             message: data.message
           }))
-
         })
         break
       case types.p2p:
@@ -68,12 +66,12 @@ server.on('connection', clientSocket => {
   clientSocket.on('end', () => {
     const index = users.findIndex(user => user.nickname === clientSocket.nickname)
     if (index !== -1) {
-      const offlineUser = users[index]
+      // const offlineUser = users[index]
       users.splice(index, 1)
       users.forEach(user => {
         user.write(JSON.stringify({
           type: types.log,
-          message: `${clientSocket.nickname} 离开了聊天室，当前在线用户：${users.length }`
+          message: `${clientSocket.nickname} 离开了聊天室，当前在线用户：${users.length}`
         }))
       })
     }
