@@ -58,8 +58,8 @@ export default {
     },
     drawChart () {
       const group = this.initGroup() // 设置外圈分组
-      const groupTick = this.initGroupTick(group) // 设置外圈刻度
-      const path = this.initPath() // 弦图连线
+      this.initGroupTick(group) // 设置外圈刻度
+      this.initPath() // 弦图连线
     },
     initGroup () {
       const color = this.getColor()

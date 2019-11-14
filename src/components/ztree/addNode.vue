@@ -95,7 +95,7 @@ export default {
     }
   },
   methods: {
-    dialogSave (formName) {
+    dialogSave () {
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.$emit('change', this.form)
