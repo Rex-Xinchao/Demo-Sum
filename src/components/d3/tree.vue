@@ -196,7 +196,7 @@
             data.line
               .attr("d", line(lineData))
               .attr("stroke", "#ccc")
-              .attr("stroke-width", 2)
+              .attr("stroke-width",  '1.5px')
               .attr("fill", "none")
               .attr("transform", "translate(0,20)")
               .on('click', d => {
