@@ -25,35 +25,37 @@
       root: true,
       children: [
         {
-          name: 'test right-1',
+          name: 'right-1',
           children: [
             {
-              name: 'test right-1-1',
+              name: 'right-1-1',
               children: [
-                { name: 'test right-1-1-1', total: 1 },
-                { name: 'test right-1-1-2', total: 2 },
-                { name: 'test right-1-1-3', total: 3 },
+                { name: 'right-1-1-1', total: 1 },
+                { name: 'right-1-1-2', total: 2 },
+                { name: 'right-1-1-3', total: 3 },
+                { name: 'right-1-4-1', total: 4 },
               ]
             },
-            { name: 'test right-1-2' },
-            { name: 'test right-1-3' },
             {
-              name: 'test right-1-4',
+              name: 'right-1-2',
               children: [
-                { name: 'test right-1-4-1', total: 1 },
-                { name: 'test right-1-4-2', total: 2 },
-                { name: 'test right-1-4-3', total: 3 },
+                { name: 'right-1-1-3', total: 1 }
               ]
             },
-            { name: 'test right-1-5' },
-            { name: 'test right-1-4-1', total: 1 }
+            { name: 'right-1-3' },
+            {
+              name: 'right-1-4',
+              children: [
+                { name: 'right-1-4-1', total: 1 },
+                { name: 'right-1-4-2', total: 2 },
+                { name: 'right-1-4-3', total: 3 },
+              ]
+            },
+            { name: 'right-1-5' }
           ]
         },
         {
-          name: 'test right-2',
-          children: [
-            { name: 'test right-1-4-1', total: 1 }
-          ]
+          name: 'right-2'
         },
       ]
     },
@@ -62,58 +64,50 @@
       root: true,
       children: [
         {
-          name: 'test left-1',
+          name: 'left-1',
           children: [
             {
-              name: 'test left-1-1',
+              name: 'left-1-1',
               children: [
-                { name: 'test left-1-3-2', total: 2 }
+                { name: 'left-1-3-2', total: 2 }
               ]
             },
             {
-              name: 'test left-1-2',
+              name: 'left-1-2',
               children: [
-                { name: 'test left-1-2-1', total: 1 },
-                { name: 'test left-1-2-2', total: 2 },
-                { name: 'test left-1-2-3', total: 3 },
-                { name: 'test left-1-2-4', total: 4 },
+                { name: 'left-1-2-1', total: 1 },
+                { name: 'left-1-2-2', total: 2 },
+                { name: 'left-1-2-3', total: 3 },
+                { name: 'left-1-2-4', total: 4 },
               ]
             },
             {
-              name: 'test left-1-3',
+              name: 'left-1-3',
               children: [
-                { name: 'test left-1-3-1', total: 1 },
-                { name: 'test left-1-3-2', total: 2 },
-                { name: 'test left-1-3-3', total: 3 },
-                { name: 'test left-1-3-4', total: 4 },
-                { name: 'test left-1-3-5', total: 5 },
+                { name: 'left-1-3-1', total: 1 },
+                { name: 'left-1-3-2', total: 2 },
+                { name: 'left-1-3-3', total: 3 },
+                { name: 'left-1-3-4', total: 4 },
+                { name: 'left-1-3-5', total: 5 },
               ]
             },
             {
-              name: 'test left-1-4',
+              name: 'left-1-4',
               children: [
-                { name: 'test left-1-3-1', total: 1 }
+                { name: 'left-1-3-1', total: 1 }
               ]
             },
             {
-              name: 'test left-1-5',
+              name: 'left-1-5',
               children: [
-                { name: 'test left-1-3-2', total: 1 }
+                { name: 'left-1-3-2', total: 1 }
               ]
             },
           ]
         },
-        { name: 'test left-2' }
+        { name: 'left-2' }
       ]
     }]
-
-  let copyData = [
-    { target: 'left-1-5', source: 'left-1-3-2' },
-    { target: 'left-1-4', source: 'left-1-3-1' },
-    { target: 'left-1-1', source: 'left-1-3-2' },
-    { target: 'right-1-1', source: 'right-1-4-1' },
-    { target: 'right-1-2', source: 'right-1-1-3' }
-  ]
 
   export default {
     name: 'myChart',
@@ -136,8 +130,9 @@
         },
         currentClickNode: null,
         currentClickLink: null,
-        line: [],
-        ChartData: null
+        pathInstanceList: [],
+        ChartData: null,
+        RepeatedData: null
       }
     },
     methods: {
@@ -147,22 +142,29 @@
       },
       initData(data) {
         let totalList = [];
-        this.initTreeChart(judgeList(data))
+        let repeatedList = []
+        let handleData = judgeList(data, null)
+        this.RepeatedData = repeatedList
+        this.initTreeChart(handleData)
         // 递归函数，找到所有重复的子节点并删除重复的一个
-        function judgeList(item) {
+        function judgeList(item, fatherName) {
           let list = []
           item.forEach(e => {
             if (e.name === 'Test' || !totalList.find(item => (item.name === e.name))) {
               totalList.push(e)
-              e.children && (e.children = judgeList(e.children))
+              e.children && (e.children = judgeList(e.children, e.name))
               list.push(e)
+            } else {
+              repeatedList.push({
+                target: fatherName,
+                source: e.name
+              })
             }
           })
           return list
         }
       },
       initTreeChart(data) {
-        console.log(data)
         let $graphBox = document.querySelector('.graph-box');
         let $chart = document.querySelector('.chart-container');
         this.params.width = $graphBox.offsetWidth;
@@ -175,45 +177,8 @@
         }
         this.graphTree(data[0], true); //上游
         this.graphTree(data[1], false); //下游
-        this.rootNode()
-        //手动连线实验
-        let vm = this
-        setTimeout(e => {
-          this.line.forEach(data => {
-            let lineData = [];
-            let startNode = this.visInstance.select("." + data.item.source);
-            let endNode = this.visInstance.select("." + data.item.target);
-            let startPosition = getPosition(startNode);
-            let endPosition = getPosition(endNode);
-            startPosition.y -= 20; // 在y轴上有20左右像素的偏差，未找到原因
-            endPosition.y -= 20;
-            let offset = (startPosition.x - endPosition.x) / 5;
-            lineData.push(startPosition);
-            lineData.push({ x: startPosition.x - offset, y: startPosition.y });
-            lineData.push({ x: endPosition.x + offset, y: endPosition.y });
-            lineData.push(endPosition);
-            let line = d3.line().x(d => d.x).y(d => d.y).curve(d3.curveBasis);
-            data.line
-              .attr("d", line(lineData))
-              .attr("stroke", "#ccc")
-              .attr("stroke-width",  '1.5px')
-              .attr("fill", "none")
-              .attr("transform", "translate(0,20)")
-              .on('click', d => {
-                vm.showMenu(d3.event, null, d)
-              });
-          })
-        }, 1000)
-        const getPosition = item => {
-          console.log(item)
-          let transformValue = item._groups[0][0].attributes.transform.value
-          let regX = /translate\((.*)\,/.exec(transformValue)
-          let regY = /\,(.*)\)/.exec(transformValue)
-          return {
-            x: parseFloat(regX[1]),
-            y: parseFloat(regY[1])
-          }
-        };
+        this.rootNode();
+        this.linkLine();
       },
       initChartOptions() {
         this.d3TreeBox.width = this.params.width - this.d3TreeBox.margin.right - this.d3TreeBox.margin.left;
@@ -238,10 +203,12 @@
           .on('dblclick.zoom', null);
         // g对象
         this.visInstance = this.svgInstance.append('g').attr("cursor", "pointer");
-        this.line = []
-        copyData.forEach(item => {
-          this.line.push({
-            line: this.visInstance.append('path').data(copyData),
+        // 需要连线的重复节点的path数组
+        // 先创建好path，避免线显示在节点上层
+        this.pathInstanceList = []
+        this.RepeatedData.forEach(item => {
+          this.pathInstanceList.push({
+            line: this.visInstance.append('path').data([item]),
             item: item
           })
         })
@@ -275,6 +242,45 @@
           .text((d) => {
             return vm._substring(d.data.name, 14, true)
           })
+      },
+      linkLine () {
+        //手动连线实验
+        let vm = this
+        setTimeout(e => {
+          this.pathInstanceList.forEach(data => {
+            let lineData = [];
+            let startNode = this.visInstance.select("." + data.item.source);
+            let endNode = this.visInstance.select("." + data.item.target);
+            let startPosition = getPosition(startNode);
+            let endPosition = getPosition(endNode);
+            startPosition.y -= 20; // 在y轴上有20左右像素的偏差，未找到原因
+            endPosition.y -= 20;
+            let offset = (startPosition.x - endPosition.x) / 5;
+            lineData.push(startPosition);
+            lineData.push({ x: startPosition.x - offset, y: startPosition.y }); // 添加中间节点，增加线的曲率
+            lineData.push({ x: endPosition.x + offset, y: endPosition.y });
+            lineData.push(endPosition);
+            let line = d3.line().x(d => d.x).y(d => d.y).curve(d3.curveBasis);
+            data.line
+              .attr("d", line(lineData))
+              .attr("stroke", "#ccc")
+              .attr("stroke-width",  '1.5px')
+              .attr("fill", "none")
+              .attr("transform", "translate(0,20)")
+              .on('click', d => {
+                vm.showMenu(d3.event, null, d)
+              });
+          })
+        }, 1000)
+        const getPosition = item => {
+          let transformValue = item._groups[0][0].attributes.transform.value
+          let regX = /translate\((.*)\,/.exec(transformValue)
+          let regY = /\,(.*)\)/.exec(transformValue)
+          return {
+            x: parseFloat(regX[1]),
+            y: parseFloat(regY[1])
+          }
+        };
       },
       graphTree(data, $pos) {
         let root = d3.hierarchy(data);
