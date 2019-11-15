@@ -138,7 +138,7 @@
     methods: {
       getChain() {
         // todo 接口获取数据
-        this.initData(ChartData)
+        this.initData(JSON.parse(JSON.stringify(ChartData)))
       },
       initData(data) {
         let totalList = [];
