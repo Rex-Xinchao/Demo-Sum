@@ -13,3 +13,29 @@ html, body, #app {
     right: 8px;
   }
 }
+
+// 覆盖ztree样式（样式优化）
+.ztree {
+  overflow: hidden!important;
+  padding: 0!important;
+  .tree-active {
+    background-color: #e5e5e5;
+
+    ul {
+      background-color: #fff !important;
+    }
+  }
+}
+
+.ztree li a.curSelectedNode_Edit{
+  width: calc(100% - 21px);
+  border-color: #2d8cf0!important;
+}
+
+.ztree li a input.rename{
+  width: 100%!important;
+  height: 100%!important;
+  outline: none;
+  border: none!important;
+  background: none!important;
+}
