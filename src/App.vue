@@ -10,7 +10,6 @@ export default {
   name: 'App',
   methods: {
     back () {
-      // back to index
       this.$router.go(-1)
     }
   }
