@@ -28,3 +28,7 @@ type IPerson2 = {
 }
 
 const person2: IPerson2 = person
+
+function isRegExp (input: any): input is RegExp {
+  return '[object RegExp]' === Object.prototype.toString.call(input);
+}

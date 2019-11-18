@@ -76,6 +76,21 @@ server.on('connection', clientSocket => {
       })
     }
   })
+
+  // clientSocket.on("error", function (err) {
+  //   console.log('出错啦', err)
+  //   const index = users.findIndex(user => user.nickname === clientSocket.nickname)
+  //   if (index !== -1) {
+  //     // const offlineUser = users[index]
+  //     users.splice(index, 1)
+  //     users.forEach(user => {
+  //       user.write(JSON.stringify({
+  //         type: types.log,
+  //         message: `${clientSocket.nickname} 离开了聊天室，当前在线用户：${users.length}`
+  //       }))
+  //     })
+  //   }
+  // });
 })
 
 server.listen(3000, () => console.log('Server running...'))
