@@ -65,3 +65,5 @@ const Jin: Person = new man(createId(), 'Jin', 45);
 Rex.setFamilyMember('father', Jin);
 
 Rex.getFamilyMember();
+
+// 编译命令 npx tsc person.ts
