@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import test from '@views/test'
 import index from '@views/index'
 import ztreeDemo from '@views/ztree'
 import treeDemo from '@views/tree'
@@ -14,6 +15,10 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index
+    }, {
+      path: '/test',
+      name: 'test',
+      component: test
     },
     {
       path: '/ztree',
